@@ -67,13 +67,17 @@ Describe "Tests" {
         $toolCacheArtifact = Join-Path $env:RUNNER_TOOL_CACHE $artifactPath
         moveAssets -source $toolCacheArtifact -destination $relocatedPythonTool
 
-        # Verify that relocated Python works
-        $relocatedFullPath | Should -Exist
-        "$relocatedFullPath --version" | Should -ReturnZeroExitCode
-        "sudo $relocatedFullPath --version" | Should -ReturnZeroExitCode
-
-        # Rever the changes for other tests
-        moveAssets -source $relocatedPythonTool -destination $toolCacheArtifact
+        
+        try {
+            # Verify that relocated Python works
+            $relocatedFullPath | Should -Exist
+            "$relocatedFullPath --version" | Should -ReturnZeroExitCode
+            "sudo $relocatedFullPath --version" | Should -ReturnZeroExitCode
+        }
+        finally {
+            # Revert the changes for other tests
+            moveAssets -source $relocatedPythonTool -destination $toolCacheArtifact
+        }
     }
 
     It "Run simple code" {
