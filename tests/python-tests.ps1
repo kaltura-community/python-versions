@@ -47,6 +47,27 @@ Describe "Tests" {
         $pythonLocation.startsWith($expectedPath) | Should -BeTrue
     }
 
+    It "Relocatable Python" {
+        $semversion = [semver] $Version
+        $pyfilename = "python$($semversion.Major).$($semversion.Minor)"
+        $pyfilename | Should -Be "python3.12"
+        $artifactPath = Join-Path "Python" $Version | Join-Path -ChildPath $Architecture
+        
+
+        $relocatedPython = Join-Path $HOME "relocated_python"
+        $relocatedPythonTool = Join-Path -Path $relocatedPython -ChildPath $artifactPath
+        $relocatedFullPath = Join-Path $relocatedPythonTool "bin" | Join-Path -ChildPath $pyfilename
+
+        # copy the current build to relocated_python
+        $toolCacheArtifact = Join-Path $env:RUNNER_TOOL_CACHE $artifactPath
+        Copy-Item -Path $toolCacheArtifact -Destination $relocatedPythonTool -Recurse -Force
+
+        # Verify that relocated Python works
+        $relocatedFullPath | Should -Exist
+        "$relocatedFullPath --version" | Should -ReturnZeroExitCode
+        "sudo $relocatedFullPath --version" | Should -ReturnZeroExitCode
+    }
+
     It "Run simple code" {
         "python ./sources/simple-test.py" | Should -ReturnZeroExitCode
     }
