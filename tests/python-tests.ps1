@@ -50,7 +50,6 @@ Describe "Tests" {
     It "Relocatable Python" {
         $semversion = [semver] $Version
         $pyfilename = "python$($semversion.Major).$($semversion.Minor)"
-        $pyfilename | Should -Be "python3.12"
         $artifactPath = Join-Path "Python" $Version | Join-Path -ChildPath $Architecture
         
 
@@ -60,12 +59,15 @@ Describe "Tests" {
 
         # copy the current build to relocated_python
         $toolCacheArtifact = Join-Path $env:RUNNER_TOOL_CACHE $artifactPath
-        Copy-Item -Path $toolCacheArtifact -Destination $relocatedPythonTool -Recurse -Force
+        Move-Item -Path $toolCacheArtifact -Destination $relocatedPythonTool -Force
 
         # Verify that relocated Python works
         $relocatedFullPath | Should -Exist
         "$relocatedFullPath --version" | Should -ReturnZeroExitCode
         "sudo $relocatedFullPath --version" | Should -ReturnZeroExitCode
+
+        # Rever the changes for other tests
+        Move-Item -Path $relocatedPythonTool -Destination $toolCacheArtifact  -Force
     }
 
     It "Run simple code" {
