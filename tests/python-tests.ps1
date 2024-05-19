@@ -66,8 +66,6 @@ Describe "Tests" {
         # copy the current build to relocated_python
         $toolCacheArtifact = Join-Path $env:RUNNER_TOOL_CACHE $artifactPath
         moveAssets -source $toolCacheArtifact -destination $relocatedPythonTool
-
-        
         try {
             # Verify that relocated Python works
             $relocatedFullPath | Should -Exist
