@@ -36,6 +36,12 @@ BeforeAll {
 
         return 0
     }
+
+    function moveAssets([string] $source, [string] $destination) {
+        $parentDestDir = Split-Path -Path $destination -Parent
+        New-Item -Path $parentDestDir -ItemType Directory -Force
+        Move-Item -Path $source -Destination $parentDestDir -Force
+    }
 }
 
 Describe "Tests" {
@@ -59,7 +65,7 @@ Describe "Tests" {
 
         # copy the current build to relocated_python
         $toolCacheArtifact = Join-Path $env:RUNNER_TOOL_CACHE $artifactPath
-        Move-Item -Path $toolCacheArtifact -Destination $relocatedPythonTool -Force
+        moveAssets -source $toolCacheArtifact -destination $relocatedPythonTool
 
         # Verify that relocated Python works
         $relocatedFullPath | Should -Exist
@@ -67,7 +73,7 @@ Describe "Tests" {
         "sudo $relocatedFullPath --version" | Should -ReturnZeroExitCode
 
         # Rever the changes for other tests
-        Move-Item -Path $relocatedPythonTool -Destination $toolCacheArtifact  -Force
+        moveAssets -source $relocatedPythonTool -destination $toolCacheArtifact
     }
 
     It "Run simple code" {
