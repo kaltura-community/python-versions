@@ -32,5 +32,19 @@
         "download_url": "https://github.com/kaltura-community/python-versions/releases/download/3.12.3-10426191666/python-3.12.3-linux-24.04-x64.tar.gz"
       }
     ]
+  },
+  {
+    "version": "3.9.19",
+    "stable": true,
+    "release_url": "https://github.com/kaltura-community/python-versions/releases/tag/3.9.19-10426293046",
+    "files": [
+      {
+        "filename": "python-3.9.19-linux-20.04-x64.tar.gz",
+        "arch": "x64",
+        "platform": "linux",
+        "platform_version": "20.04",
+        "download_url": "https://github.com/kaltura-community/python-versions/releases/download/3.9.19-10426293046/python-3.9.19-linux-20.04-x64.tar.gz"
+      }
+    ]
   }
 ]
