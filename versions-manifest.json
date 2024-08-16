@@ -1,11 +1,5 @@
 [
   {
-    "version": "3.12.5",
-    "stable": true,
-    "release_url": "https://github.com/kaltura-community/python-versions/releases/tag/3.12.5",
-    "files": null
-  },
-  {
     "version": "3.12.3",
     "stable": true,
     "release_url": "https://github.com/kaltura-community/python-versions/releases/tag/3.12.3-10426191666",
@@ -30,6 +24,20 @@
         "platform": "linux",
         "platform_version": "24.04",
         "download_url": "https://github.com/kaltura-community/python-versions/releases/download/3.12.3-10426191666/python-3.12.3-linux-24.04-x64.tar.gz"
+      }
+    ]
+  },
+  {
+    "version": "3.10.14",
+    "stable": true,
+    "release_url": "https://github.com/kaltura-community/python-versions/releases/tag/3.10.14-10426530598",
+    "files": [
+      {
+        "filename": "python-3.10.14-linux-20.04-x64.tar.gz",
+        "arch": "x64",
+        "platform": "linux",
+        "platform_version": "20.04",
+        "download_url": "https://github.com/kaltura-community/python-versions/releases/download/3.10.14-10426530598/python-3.10.14-linux-20.04-x64.tar.gz"
       }
     ]
   },
